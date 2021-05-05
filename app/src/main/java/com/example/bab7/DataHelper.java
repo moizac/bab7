@@ -23,25 +23,22 @@ public class DataHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("drop Table if exists Userdetails");
+        onCreate(db);
     }
 
     public Boolean insertuserdata(String id, String nim, String nama, String kelas) {
         SQLiteDatabase db = this.getWritableDatabase();
-            try{
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("id", id);
-                contentValues.put("nim", nim);
-                contentValues.put("nama", nama);
-                contentValues.put("kelas", kelas);
-                long result = db.insert("Userdetails", null, contentValues);
-                if (result == -1) {
-                    return false;
-                } else {
-                    return true;
-                }
-            } catch(Exception e){
-                e.printStackTrace();
-        } return false;
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id", id);
+        contentValues.put("nim", nim);
+        contentValues.put("nama", nama);
+        contentValues.put("kelas", kelas);
+        long result = db.insert("Userdetails", null, contentValues);
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
     public Boolean updateuserdata(String id, String nim, String nama, String kelas) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -80,6 +77,6 @@ public class DataHelper extends SQLiteOpenHelper {
     public Cursor getdata () {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("Select * from Userdetails", null);
-            return cursor;
+        return cursor;
     }
 }
